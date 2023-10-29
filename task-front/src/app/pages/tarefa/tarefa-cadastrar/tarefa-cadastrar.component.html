@@ -1,0 +1,18 @@
+<form (ngSubmit)="cadastrarTarefa(tarefa)" class="cadastro-tarefa">
+    <div>
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" required [(ngModel)]="tarefa.titulo">
+    </div>
+    
+    <div>
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" name="descricao" required [(ngModel)]="tarefa.descricao"></textarea>
+    </div>
+    
+    <div>
+      <label for="concluirEm">Data de Conclusão:</label>
+      <input type="date" id="concluirEm" name="concluirEm" required [(ngModel)]="tarefa.concluirEm">
+    </div>
+    
+    <button type="submit">Cadastrar Tarefa</button>
+</form>

@@ -1,0 +1,22 @@
+<div class="lista-equipes" *ngIf="equipes.length > 0">
+    <div *ngFor="let equipe of equipes">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{ equipe.nome }}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-actions align="end">
+                <button mat-button>EDIT</button>
+                <button color="primary" mat-button>
+                    <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font"
+                        data-mat-icon-type="font">delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+        <br>
+    </div>
+</div>
+
+<div class="lista-equipes" *ngIf="equipes.length == 0">
+    <p>Não foi possivel acessar as equipes</p>
+</div>

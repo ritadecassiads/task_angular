@@ -1,0 +1,24 @@
+<div class="lista-tarefas" *ngIf="tarefas.length > 0">
+    <div *ngFor="let tarefa of tarefas">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{ tarefa.titulo }}</mat-card-title>
+                <mat-card-subtitle>{{ tarefa.descricao }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-actions align="end">
+                <button mat-button>EDIT</button>
+                <button color="primary" mat-button (click)="excluirTarefa(tarefa.tarefaId)">
+                    <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font"
+                        data-mat-icon-type="font">delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+        <br>
+    </div>
+</div>
+
+<div class="lista-tarefas" *ngIf="tarefas.length == 0">
+    <p>Não foi possivel acessar as tarefas</p>
+</div>
+
