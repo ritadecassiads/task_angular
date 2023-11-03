@@ -17,6 +17,10 @@ const routes: Routes = [
     path: "pages/tarefa/cadastrar",
     component: TarefaCadastrarComponent
   },
+  { 
+    path: "pages/tarefa/editar/:id", 
+    component: TarefaCadastrarComponent 
+  },
   {
     path: "pages/equipe/listar",
     component: EquipeListarComponent

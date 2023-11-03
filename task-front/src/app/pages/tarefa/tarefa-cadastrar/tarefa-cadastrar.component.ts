@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { Tarefa } from "src/app/models/tarefa.model";
+import { TarefaService } from "src/app/services/tarefa.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-tarefa-cadastrar",
@@ -8,7 +9,7 @@ import { Tarefa } from "src/app/models/tarefa.model";
   styleUrls: ["./tarefa-cadastrar.component.css"],
 })
 export class TarefaCadastrarComponent {
-  constructor(private client: HttpClient) {}
+  constructor(private tarefaService: TarefaService, private route: ActivatedRoute) {}
 
   tarefa: Tarefa = {
     titulo: "",
@@ -16,29 +17,63 @@ export class TarefaCadastrarComponent {
     concluirEm: undefined,
   };
 
-  cadastrarTarefa(tarefa: Tarefa) {
-    const apiUrl = "https://localhost:7213/tarefa/cadastrar";
-    this.validaData();
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      // pego o id que vem na url para edição
+      const tarefaId = +params["id"];
+      if (tarefaId) {
+        console.log("ID da tarefa:", tarefaId);
 
-    this.client.post(apiUrl, tarefa).subscribe({
-      next: (response) => {
-        alert("Tarefa cadastrada com sucesso!")
-        console.log("Tarefa cadastrada com sucesso!", response);
-        // Adicione qualquer outra lógica que você deseja após o cadastro
-      },
-      error: (error) => {
-        console.error("Erro ao cadastrar tarefa:", error);
-        // Adicione tratamento de erro, se necessário
-      },
+        // busco a tarefa para preencher os campos
+        this.buscarTarefaPorId(tarefaId);
+      }
     });
   }
 
-  validaData() {
-    // se o campo "concluirEm" estiver vazio, defino a data daqui a 7 dias
-    if (!this.tarefa.concluirEm) {
-      const dataDaquiA7Dias = new Date();
-      dataDaquiA7Dias.setDate(dataDaquiA7Dias.getDate() + 7);
-      this.tarefa.concluirEm = dataDaquiA7Dias;
+  buscarTarefaPorId(tarefaId: number) {
+    this.tarefaService.getTarefaPorId(tarefaId).subscribe((tarefa) => {
+      this.tarefa = tarefa;
+    });
+  }
+
+  salvarTarefa() {
+    if (this.tarefa.titulo === "") {
+      alert("Não foi possivel cadastrar tarefa!");
+    } else {
+      if (this.tarefa.tarefaId == null) {
+        try {
+          if (this.tarefa.concluirEm != null) {
+            this.formataData(this.tarefa.concluirEm);
+          }
+          this.tarefaService.salvarTarefa(this.tarefa);
+          alert("Tarefa salva com sucesso!");
+        } catch (error) {
+          console.log("Erro ao salvar tarefa: ", error);
+          alert("Ocorreu um erro ao salvar tarefa!");
+        }
+      } else {
+        this.editarTarefa();
+      }
     }
+  }
+
+  editarTarefa() {
+    try {
+      this.tarefaService.editarTarefa(this.tarefa);
+      alert("Tarefa editada com sucesso!");
+    } catch (error) {
+      console.log("Erro ao editar tarefa: ", error);
+      alert("Ocorreu um erro ao editar tarefa!");
+    }
+  }
+
+  formataData(date: Date) {
+    const data = new Date(date);
+    const timezoneOffset = data.getTimezoneOffset();
+    const dataUTC = new Date(data.getTime() + timezoneOffset * 60 * 1000);
+    const dataFormatada = dataUTC.toISOString();
+    this.tarefa.concluirEm = new Date(dataFormatada);
+
+    console.log("converteu a data", this.tarefa.concluirEm);
   }
 }

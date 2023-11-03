@@ -22,6 +22,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import { EquipeListarComponent } from './pages/equipe/equipe-listar/equipe-listar.component';
 import { EquipeCadastrarComponent } from './pages/equipe/equipe-cadastrar/equipe-cadastrar.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 
 @NgModule({
@@ -49,7 +52,11 @@ import { EquipeCadastrarComponent } from './pages/equipe/equipe-cadastrar/equipe
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule, 
+    MatDatepickerModule, 
+    MatNativeDateModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
