@@ -1,0 +1,10 @@
+.cadastro-equipe {
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+  margin: 0px 20px;
+}
+
+mat-form-field, button {
+  width: 80%;
+}

@@ -1,12 +1,14 @@
 import { Tarefa } from "src/app/models/tarefa.model";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogComponent } from "../components/dialog/dialog.component";
 
 @Injectable({
   providedIn: "root",
 })
 export class TarefaService {
-  constructor(private client: HttpClient) {}
+  constructor(private client: HttpClient, public dialog: MatDialog) {}
 
   private apiUrl = "https://localhost:7213/tarefa";
   public tarefas: Tarefa[] = [];
@@ -27,7 +29,6 @@ export class TarefaService {
   listarTarefas(): Tarefa[] {
     this.client.get<Tarefa[]>(`${this.apiUrl}/listar`).subscribe({
       next: (tarefas) => {
-        console.table(tarefas);
         this.tarefas = tarefas;
       },
       error: (error) => {
@@ -40,7 +41,7 @@ export class TarefaService {
 
   editarTarefa(tarefa: Tarefa) {
     this.client
-      .put(`${this.apiUrl}/atualizar/${tarefa.tarefaId}`, tarefa)
+      .put(`${this.apiUrl}/alterar/${tarefa.tarefaId}`, tarefa)
       .subscribe({
         next: (response) => {
           console.log("Serviço: Tarefa editada!", tarefa);
@@ -52,14 +53,14 @@ export class TarefaService {
   }
 
   excluirTarefa(id: number) {
-    this.client.delete(`${this.apiUrl}/excluir/${id}`).subscribe(
+    this.client.delete(`${this.apiUrl}/deletar/${id}`).subscribe(
       (response) => {
         console.log("Serviço: Item excluído!");
       },
       (error) => {
         console.error("Erro ao excluir o item", error);
       }
-    );
+      );
   }
 
   getTarefaPorId(id: number) {

@@ -20,8 +20,11 @@ export class EquipeListarComponent implements OnInit{
     .subscribe({
       //
       next: (equipes) => {
-        this.equipes = equipes; // Armazena as tarefas recebidos na variavel que vai pro html
-        console.table(equipes);
+        if (equipes) {
+          this.equipes = equipes;
+        } else {
+          alert("Não há registros de equipes no banco de dados")
+        }
       },
       error: (error: HttpErrorResponse) => {
         console.error("Ocorreu um erro:", error);

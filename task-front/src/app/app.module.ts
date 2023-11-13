@@ -24,8 +24,9 @@ import { EquipeListarComponent } from './pages/equipe/equipe-listar/equipe-lista
 import { EquipeCadastrarComponent } from './pages/equipe/equipe-cadastrar/equipe-cadastrar.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
-
+import {MatSelectModule} from '@angular/material/select';
+import { DialogComponent } from './components/dialog/dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     HeaderComponent,
     SideNavComponent,
     EquipeListarComponent,
-    EquipeCadastrarComponent
+    EquipeCadastrarComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatInputModule, 
     MatDatepickerModule, 
     MatNativeDateModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

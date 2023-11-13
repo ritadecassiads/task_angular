@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { Tarefa } from "src/app/models/tarefa.model";
 import { TarefaService } from "src/app/services/tarefa.service";
 import { ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogComponent } from "src/app/components/dialog/dialog.component";
 
 @Component({
   selector: "app-tarefa-cadastrar",
@@ -9,7 +11,11 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./tarefa-cadastrar.component.css"],
 })
 export class TarefaCadastrarComponent {
-  constructor(private tarefaService: TarefaService, private route: ActivatedRoute) {}
+  constructor(
+    private tarefaService: TarefaService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog
+  ) {}
 
   tarefa: Tarefa = {
     titulo: "",
@@ -38,7 +44,7 @@ export class TarefaCadastrarComponent {
 
   salvarTarefa() {
     if (this.tarefa.titulo === "") {
-      alert("Não foi possivel cadastrar tarefa!");
+      this.abrirModal("Campo obrigatório", "Titulo deve ser preenchido");
     } else {
       if (this.tarefa.tarefaId == null) {
         try {
@@ -46,11 +52,12 @@ export class TarefaCadastrarComponent {
             this.formataData(this.tarefa.concluirEm);
           }
           this.tarefaService.salvarTarefa(this.tarefa);
-          alert("Tarefa salva com sucesso!");
         } catch (error) {
           console.log("Erro ao salvar tarefa: ", error);
-          alert("Ocorreu um erro ao salvar tarefa!");
+          return this.abrirModal("Indisponibilidade", "Erro ao salvar tarefa");
         }
+
+        return this.abrirModal("Sucesso", "Tarefa salva com sucesso!");
       } else {
         this.editarTarefa();
       }
@@ -60,11 +67,12 @@ export class TarefaCadastrarComponent {
   editarTarefa() {
     try {
       this.tarefaService.editarTarefa(this.tarefa);
-      alert("Tarefa editada com sucesso!");
     } catch (error) {
       console.log("Erro ao editar tarefa: ", error);
-      alert("Ocorreu um erro ao editar tarefa!");
+      return this.abrirModal("Indisponibilidade", "Erro ao editar tarefa");
     }
+
+    return this.abrirModal("Sucesso", "Tarefa alterada com sucesso!");
   }
 
   formataData(date: Date) {
@@ -75,5 +83,16 @@ export class TarefaCadastrarComponent {
     this.tarefa.concluirEm = new Date(dataFormatada);
 
     console.log("converteu a data", this.tarefa.concluirEm);
+  }
+
+  abrirModal(title: string, message: string) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: "300px",
+      data: { title, message },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("O diálogo foi fechado");
+    });
   }
 }
