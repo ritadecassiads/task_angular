@@ -1,11 +1,10 @@
 ## Fazer
--> A edição da tarefa
--> Tudo da equipe
-    - OK listagem
-    - cadastro
-    - exclusao
+-> Equipe
     - edição
-    -> ajustar equipe no back
+    - mostrar tarefas da equipe
+
+-> Usuario
+    - mostrar na equipe
 
 -> autenticação de login no back
     - tela de login

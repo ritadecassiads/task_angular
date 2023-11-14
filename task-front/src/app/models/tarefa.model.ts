@@ -1,3 +1,4 @@
+import { Equipe } from "./equipe.model";
 import { Usuario } from "./usuario.model";
 
 export interface Tarefa {
@@ -8,4 +9,7 @@ export interface Tarefa {
     concluirEm?: Date,
     concluida?: boolean,
     usuario?: Usuario
+    usuarioId?: number
+    equipe?: Equipe
+    equipeId?: number
 }

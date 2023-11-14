@@ -12,14 +12,28 @@
             </mat-card-header>
 
             <mat-card-actions align="end">
-                <button mat-button [routerLink]="['/pages/tarefa/editar', tarefa.tarefaId]">
+                <button mat-button (click)="mostrarEquipes()" title="Ver equipes">
+                    <mat-icon class="mat-primary">group</mat-icon>
+                </button>
+                <button mat-button [routerLink]="['/pages/tarefa/editar', tarefa.tarefaId]" title="Editar">
                     <mat-icon class="mat-primary">edit</mat-icon>
                 </button>
-                <button color="primary" mat-button (click)="excluirTarefa(tarefa.tarefaId)">
+                <button color="primary" mat-button (click)="excluirTarefa(tarefa.tarefaId)" title="Excluir">
                     <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font"
                         data-mat-icon-type="font">delete</mat-icon>
                 </button>
             </mat-card-actions>
+
+            <!-- <div *ngFor="let equipe of equipes">
+                <mat-card-header class="containerEquipe desativado">
+                    <div>{{ equipe.nome }}</div>
+                    <mat-card-title *ngIf="tarefa.equipeId === equipe.equipeId">{{ equipe.nome }} </mat-card-title>
+                   <mat-card-subtitle *ngIf="tarefa.descricao != ''">
+                        Descrição: {{ tarefa.descricao }}
+                    </mat-card-subtitle> 
+                </mat-card-header>
+
+            </div> -->
         </mat-card>
         <br>
     </div>

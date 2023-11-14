@@ -1,3 +1,7 @@
 .lista-tarefas {
     margin: 20px 30px;
 }
+
+.desativado{
+    display: none;
+}

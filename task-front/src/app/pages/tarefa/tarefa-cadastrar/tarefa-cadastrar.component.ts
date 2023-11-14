@@ -92,7 +92,7 @@ export class TarefaCadastrarComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log("O diálogo foi fechado");
+
     });
   }
 }

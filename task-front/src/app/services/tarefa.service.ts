@@ -44,7 +44,7 @@ export class TarefaService {
       .put(`${this.apiUrl}/alterar/${tarefa.tarefaId}`, tarefa)
       .subscribe({
         next: (response) => {
-          console.log("Serviço: Tarefa editada!", tarefa);
+          console.log("Serviço: Tarefa editada!", response);
         },
         error: (error) => {
           console.error("Erro ao editar tarefa:", error);
