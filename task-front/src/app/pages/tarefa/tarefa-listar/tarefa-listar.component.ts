@@ -20,34 +20,42 @@ export class TarefaListarComponent implements OnInit {
 
   tarefas: Tarefa[] = [];
   equipes: Equipe[] = [];
+  equipeDasTarefas: Equipe[] = [];
 
   ngOnInit(): void {
-    this.client
-      .get<Tarefa[]>("https://localhost:7213/tarefa/listar")
-      .subscribe({
-        next: (tarefas) => {
-          if (tarefas) {
-            this.tarefas = tarefas;
-            console.log("tarefas equipes: ", tarefas);
-          }
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error("Ocorreu um erro:", error);
-        },
-      });
+    this.buscarTarefas();
+    this.buscarEquipes();
+  }
 
-    this.client
-      .get<Equipe[]>("https://localhost:7213/equipe/listar")
-      .subscribe({
-        next: (equipes) => {
-          if (equipes) {
-            this.equipes = equipes;
-          }
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error("Ocorreu um erro:", error);
-        },
-      });
+  async buscarTarefas(): Promise<void> {
+    try {
+      const tarefas = await this.client
+        .get<Tarefa[]>("https://localhost:7213/tarefa/listar")
+        .toPromise();
+
+      if (tarefas) {
+        this.tarefas = tarefas;
+        console.log("Tarefas encontradas:", this.tarefas);
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
+  }
+
+  async buscarEquipes(): Promise<void> {
+    try {
+      const equipes = await this.client
+        .get<Equipe[]>("https://localhost:7213/equipe/listar")
+        .toPromise();
+
+      if (equipes) {
+        this.equipes = equipes;
+        console.log("Equipes encontradas:", this.equipes);
+        this.validaEquipesDasTarefas();
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
   }
 
   excluirTarefa(id?: number) {
@@ -64,8 +72,17 @@ export class TarefaListarComponent implements OnInit {
   mostrarEquipes() {
     const containerEquipe = document.querySelector(".containerEquipe");
     containerEquipe?.classList.remove("desativado");
+  }
 
-    
+  validaEquipesDasTarefas() {
+    this.tarefas.forEach((tarefa) => {
+      this.equipes.forEach((equipe) => {
+        // como o retorno do banco vem apenas o equipeId, atrelo o objeto equipe ao objeto tarefa
+        if (tarefa.equipeId === equipe.equipeId) {
+          tarefa.equipe = equipe;
+        }
+      });
+    });
   }
 
   abrirModal(title: string, message: string) {

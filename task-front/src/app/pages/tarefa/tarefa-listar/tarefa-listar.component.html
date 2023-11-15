@@ -3,16 +3,19 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>{{ tarefa.titulo }}</mat-card-title>
-                <mat-card-subtitle *ngIf="tarefa.descricao != ''">
+                <mat-card-title class="titulo-equipe" *ngIf="tarefa.equipe">Equipe responsavel: {{ tarefa.equipe.nome }}</mat-card-title>
+
+                <mat-card-subtitle *ngIf="tarefa.descricao">
                     Descrição: {{ tarefa.descricao }}
                 </mat-card-subtitle>
-                <mat-card-subtitle *ngIf="tarefa.concluirEm != null" >
+                <mat-card-subtitle *ngIf="tarefa.concluirEm">
                     Concluir em: {{ tarefa.concluirEm | date : "dd/MM/yyyy"}}
                 </mat-card-subtitle>
+                
             </mat-card-header>
 
             <mat-card-actions align="end">
-                <button mat-button (click)="mostrarEquipes()" title="Ver equipes">
+                <button mat-button title="Ver equipes">
                     <mat-icon class="mat-primary">group</mat-icon>
                 </button>
                 <button mat-button [routerLink]="['/pages/tarefa/editar', tarefa.tarefaId]" title="Editar">
@@ -26,11 +29,8 @@
 
             <!-- <div *ngFor="let equipe of equipes">
                 <mat-card-header class="containerEquipe desativado">
+                    <div>teste</div>
                     <div>{{ equipe.nome }}</div>
-                    <mat-card-title *ngIf="tarefa.equipeId === equipe.equipeId">{{ equipe.nome }} </mat-card-title>
-                   <mat-card-subtitle *ngIf="tarefa.descricao != ''">
-                        Descrição: {{ tarefa.descricao }}
-                    </mat-card-subtitle> 
                 </mat-card-header>
 
             </div> -->

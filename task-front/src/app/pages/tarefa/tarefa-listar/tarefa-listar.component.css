@@ -5,3 +5,7 @@
 .desativado{
     display: none;
 }
+
+.titulo-equipe{
+    font-size: small;
+}

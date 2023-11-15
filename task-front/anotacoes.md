@@ -13,6 +13,13 @@
 
 -> Tratar o erro de quando o banco de dados estiver vazio no backend
 
-<mat-icon>supervisor_account</mat-icon>
+-> Problema ao acessar a tarefa de cada equipe
+    - preciso percorrer a lista de tarefas existentes no banco e comparar o campo equipeId com as equipes existentes, a tarefa que der match com o equipeId, é a tarefa que foi cadastrada para aquela equipe
+    - preciso guardar o nome dessa tarefa em um array e mostrar na tela junto da equipe
+        - ex: equipe booleanos
+                fazer alguma coisa
 
-<mat-icon>group</mat-icon>
+## Regras de negocio
+- Cada equipe pode ter varias tarefas
+- Cada equipe pode ter varias usuarios
+

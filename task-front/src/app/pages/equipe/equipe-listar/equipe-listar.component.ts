@@ -1,3 +1,4 @@
+import { Usuario } from './../../../models/usuario.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,46 +18,66 @@ export class EquipeListarComponent implements OnInit{
 
   equipes: Equipe[] = [];
   tarefas: Tarefa[] = [];
-
+  usuarios: Usuario[] = [];
 
   ngOnInit(): void {
-    this.client
-    .get<Equipe[]>("https://localhost:7213/equipe/listar")
-    .subscribe({
-      //
-      next: (equipes) => {
-        if (equipes) {
-          this.equipes = equipes;
-        }
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error("Ocorreu um erro:", error);
-      },
-    });
-
-    this.client
-    .get<Tarefa[]>("https://localhost:7213/tarefa/listar")
-    .subscribe({
-      next: (tarefas) => {
-        if (tarefas) {
-          this.tarefas = tarefas;
-          console.log("tarefas equipes: ", tarefas);
-        }
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error("Ocorreu um erro:", error);
-      },
-    });
+    this.buscarEquipes();
+    this.buscarTarefas();
+    this.buscarUsuarios();
   }
 
+  async buscarEquipes(): Promise<void> {
+    try {
+      const equipes = await this.client
+        .get<Equipe[]>("https://localhost:7213/equipe/listar")
+        .toPromise();
+
+      if (equipes) {
+        this.equipes = equipes;
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
+  }
+
+  async buscarTarefas(): Promise<void> {
+    try {
+      const tarefas = await this.client
+        .get<Tarefa[]>("https://localhost:7213/tarefa/listar")
+        .toPromise();
+
+      if (tarefas) {
+        this.tarefas = tarefas;
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
+  }
+
+  async buscarUsuarios(): Promise<void> {
+    try {
+      const usuarios = await this.client
+        .get<Usuario[]>("https://localhost:7213/usuario/listar")
+        .toPromise();
+
+      if (usuarios) {
+        this.usuarios = usuarios;
+        console.log("usuarios listados: ", this.usuarios)
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
+  }
 
   excluirEquipe(id?: number) {
+    try {
       if (id != null) {
         this.equipeService.excluirEquipe(id);
-      } else {
-        return this.abrirModal("Indisponibilidade", "Erro ao editar tarefa");
-      }
-    return this.abrirModal("Sucesso", "Tarefa excluída com sucesso!");
+      } 
+    } catch (error) {
+      return this.abrirModal("Indisponibilidade", "Erro ao excluir equipe");
+    }
+    return this.abrirModal("Sucesso", "Equipe excluída com sucesso!");
   }
 
   abrirModal(title: string, message: string) {
@@ -70,12 +91,13 @@ export class EquipeListarComponent implements OnInit{
     });
   }
 
-  // comparaInfos(){
-  //   this.tarefas.forEach(tarefas => {
-      
+  // validaTarefasDasEquipes(){
+  //   this.tarefas.forEach((tarefa, index) => {
+  //     if(tarefa.equipeId == this.equipes[index].equipeId){
+  //       this.tarefasDasEquipes.push(tarefa)
+  //       console.log("tarefas atreladas a alguma equipe: ", this.tarefasDasEquipes)
+  //     }
   //   });
   // }
-
-
 
 }
