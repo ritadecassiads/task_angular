@@ -4,4 +4,6 @@ import { Usuario } from "./usuario.model";
 export interface Equipe {
     equipeId?: number,
     nome: string
+    tarefa: Tarefa[],
+    usuario: Usuario[]
 }

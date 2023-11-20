@@ -21,7 +21,9 @@ export class EquipeCadastrarComponent {
   
   equipe: Equipe = {
     equipeId: 0,
-    nome: ""
+    nome: "",
+    tarefa: [],
+    usuario: []
   }
   
   tarefas: Tarefa[] = [];
@@ -29,51 +31,46 @@ export class EquipeCadastrarComponent {
   equipes: Equipe[] = [];
 
   tarefasSelecionadas: Tarefa[] = [];
-  usuariosSelecionados: number[] = [];
+  usuariosSelecionados: Usuario[] = [];
 
   ngOnInit(): void {
-    // listo as tarefas
-    this.client
-    .get<Tarefa[]>("https://localhost:7213/tarefa/listar")
-    .subscribe({
-      next: (tarefas) => {
-        if (tarefas) {
-          this.tarefas = tarefas;
-          console.log(tarefas)
-          
-        } else {
-          console.log("Não há registros de tarefas no banco de dados")
-        }
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error("Ocorreu um erro ao listar as tarefas:", error);
-      },
-    });
+    this.buscarTarefas();
+    this.buscarUsuarios();
+  }
+  
+  async buscarTarefas(): Promise<void> {
+    try {
+      const tarefas = await this.client
+        .get<Tarefa[]>("https://localhost:7213/tarefa/listar")
+        .toPromise();
 
-    // listo os usuarios
-    this.client
-    .get<Usuario[]>("https://localhost:7213/usuario/listar")
-    .subscribe({
-      next: (usuarios) => {
-        if(usuarios){
-          this.usuarios = usuarios;
-          console.log(usuarios)
+      if (tarefas) {
+        this.tarefas = tarefas;
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
+  }
 
+  async buscarUsuarios(): Promise<void> {
+    try {
+      const usuarios = await this.client
+        .get<Usuario[]>("https://localhost:7213/usuario/listar")
+        .toPromise();
 
-        } else {
-          console.log("Não há registros de usuarios no banco de dados")
-        }
-
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error("Ocorreu um erro ao listar os usuarios:", error);
-      },
-    });
+      if (usuarios) {
+        this.usuarios = usuarios;
+        console.log("usuarios listados: ", this.usuarios)
+      }
+    } catch (error) {
+      console.error("Ocorreu um erro:", error);
+    }
   }
 
   salvarEquipe(){
     if (this.equipe.nome != null) {
-      this.equipeService.salvarEquipe(this.equipe, this.tarefasSelecionadas)
+      this.equipeService.salvarEquipe(this.equipe, this.tarefasSelecionadas, this.usuariosSelecionados);
+      // this.associaEquipeAoUsuario(this.usuariosSelecionados, this.equipe);
       this.router.navigate(["pages/equipe/listar"]);
     } else {
       return this.abrirModal("Erro", "Não deu!");
@@ -85,6 +82,24 @@ export class EquipeCadastrarComponent {
     this.tarefasSelecionadas = event.value as Tarefa[];
     console.log("tarefas selecionadas: ", this.tarefasSelecionadas)
   }
+
+  salvaUsuariosSelecionadas(event: MatSelectChange): void {
+    this.usuariosSelecionados = event.value as Usuario[];
+    console.log("usuarios selecionadas: ", this.usuariosSelecionados)
+  }
+
+  // associaEquipeAoUsuario(usuarios: Usuario[], equipes: Equipe[]){
+  //   usuarios.forEach(usuario => {
+  //     equipes.forEach(equipe => {
+  //       if(usuario.equipeId){
+  //         if (usuario.equipeId == equipe.equipeId) {
+  //           equipe.usuario.push(usuario)
+  //           console.log("teste equipe do usuario: ", usuario.equipe)
+  //         }
+  //       }
+  //     })
+  //   });
+  // }
 
   abrirModal(title: string, message: string) {
     const dialogRef = this.dialog.open(DialogComponent, {

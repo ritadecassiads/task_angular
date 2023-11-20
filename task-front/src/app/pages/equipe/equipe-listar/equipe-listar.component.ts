@@ -80,6 +80,19 @@ export class EquipeListarComponent implements OnInit{
     return this.abrirModal("Sucesso", "Equipe excluída com sucesso!");
   }
 
+  // associaEquipeAoUsuario(usuarios: Usuario[], equipes: Equipe[]){
+  //   usuarios.forEach(usuario => {
+  //     equipes.forEach(equipe => {
+  //       if(usuario.equipeId){
+  //         if (usuario.equipeId == equipe.equipeId) {
+  //           equipe.usuario.push(usuario)
+  //           console.log("teste equipe do usuario: ", usuario.equipe)
+  //         }
+  //       }
+  //     })
+  //   });
+  // }
+
   abrirModal(title: string, message: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: "300px",

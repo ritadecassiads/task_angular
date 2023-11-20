@@ -1,3 +1,5 @@
+import { Equipe } from "./equipe.model"
+
 export interface Usuario {
     usuarioId: number,
     nome: string,
@@ -5,4 +7,6 @@ export interface Usuario {
     senha: string,
     email: string,
     telefone: string
+    equipe: Equipe,
+    equipeId: number
 }

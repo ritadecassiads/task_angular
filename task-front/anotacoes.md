@@ -1,25 +1,68 @@
 ## Fazer
 -> Equipe
     - edição
-    - mostrar tarefas da equipe
 
 -> Usuario
     - mostrar na equipe
 
--> autenticação de login no back
-    - tela de login
-    - tela de cadastro de usuarios
-
-
--> Tratar o erro de quando o banco de dados estiver vazio no backend
-
--> Problema ao acessar a tarefa de cada equipe
-    - preciso percorrer a lista de tarefas existentes no banco e comparar o campo equipeId com as equipes existentes, a tarefa que der match com o equipeId, é a tarefa que foi cadastrada para aquela equipe
-    - preciso guardar o nome dessa tarefa em um array e mostrar na tela junto da equipe
-        - ex: equipe booleanos
-                fazer alguma coisa
+-> associar usuario a equipe e mostra na listagem de equipe
 
 ## Regras de negocio
 - Cada equipe pode ter varias tarefas
-- Cada equipe pode ter varias usuarios
+- Cada equipe pode ter varios usuarios
 
+
+
+
+
+## 16/10 - Angular
+# Comandos
+-> criar o projeto: ng new NomeProjeto --minimal
+    - pergunta do css
+    - "não" para segunda pergunta
+-> criar componente: ng g c pages/produto/produto-listar
+    - utilizar o traço para separar palavras
+                         
+
+# Dividir o componentes em 3 partes
+
+-> alterar no angular.json
+    - para criar os arquivos do componente separado mudar o para false 
+        "inlineTemplate": false,
+        "inlineStyle": false
+
+--> 1 componente raiz
+-> html
+-> css
+-> ts
+    - arquivo principal
+    - regras de negocio
+    - aponta pros arquivos html e css
+
+
+# HttpClientModule
+-> Importar na mão
+-> Para fazer a conexão com o back, requisições
+-> Funciona como o axios
+-> Proprio do angular
+-> Declarar no construtor
+-> Importar no app.module.ts
+    - tudo que for instalado precisa estar mapeado lá
+
+## 23/10
+# Camadas:
+    - index.html
+        - app-root
+            - outros componentes
+
+# Requisição
+-> Subscribe(no retorno da requisição) 
+    - é usado para "assinar" uma Observable retornada pela chamada HTTP this.client.get(...). Observables são uma parte fundamental da programação reativa no Angular e são usadas para lidar com fluxos de dados assíncronos, como respostas de API, eventos, etc
+
+-> Next 
+    - Este callback é chamado quando a Observable emite um novo valor, ou seja, quando a resposta da API é bem-sucedida
+
+
+## 30/10
+# Cadastro produto
+    - atributo!: string = exclamação para inicializar a variavel sem valor
