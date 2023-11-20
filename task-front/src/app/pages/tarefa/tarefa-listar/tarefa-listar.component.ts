@@ -22,6 +22,16 @@ export class TarefaListarComponent implements OnInit {
   equipes: Equipe[] = [];
   equipeDasTarefas: Equipe[] = [];
 
+  colunasTabela: string[] = [
+    "titulo",
+    "descricao",
+    "concluirEm",
+    "criadaEm",
+    "done",
+    "alterar",
+    "deletar"
+  ]
+
   ngOnInit(): void {
     this.buscarTarefas();
     this.buscarEquipes();

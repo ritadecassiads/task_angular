@@ -7,6 +7,10 @@
 
 -> associar usuario a equipe e mostra na listagem de equipe
 
+-> Ajustar tabela de tarefas
+- Ajustar botao de conclusão
+    - fazer função que marca como concluída
+
 ## Regras de negocio
 - Cada equipe pode ter varias tarefas
 - Cada equipe pode ter varios usuarios
