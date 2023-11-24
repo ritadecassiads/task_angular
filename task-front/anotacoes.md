@@ -1,11 +1,9 @@
 ## Fazer
--> Equipe
-    - edição
-
 -> Usuario
-    - mostrar na equipe
-
--> associar usuario a equipe e mostra na listagem de equipe
+    - listar
+    - cadastrar
+    - fazer relacionamento com tarefa e equipe
+        - da pra listar em um select no cadastro de tarefas e salvar no componente tarefa-cadastro, pq o campo usuarioId fica na tabela de tarefas e fica mais complicado listar as tarefas em uma tela pra usuario, pq dai tem que cadastrar usuario + fazer uma alteração na tabela de tarefas inserindo aquele usuario
 
 
 ## Regras de negocio
@@ -17,7 +15,6 @@
 
 - Toda tarefa concluída não pode mais ser editada
 - Ao cliclar no botão do status altera de não iniciada -> em andamento -> concluída
-
 
 
 
