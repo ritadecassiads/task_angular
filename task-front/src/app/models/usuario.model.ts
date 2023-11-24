@@ -7,6 +7,6 @@ export interface Usuario {
     senha: string,
     email: string,
     telefone: string
-    equipe: Equipe,
+    equipe?: Equipe,
     equipeId: number
 }

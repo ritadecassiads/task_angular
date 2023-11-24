@@ -7,6 +7,7 @@ import { DialogComponent } from "src/app/components/dialog/dialog.component";
 import { Equipe } from "src/app/models/equipe.model";
 import { HttpClient } from "@angular/common/http";
 import { MatSelectChange } from "@angular/material/select";
+import { Usuario } from "src/app/models/usuario.model";
 
 @Component({
   selector: "app-tarefa-cadastrar",
@@ -29,12 +30,15 @@ export class TarefaCadastrarComponent {
   };
 
   equipes: Equipe[] = [];
+  usuarios: Usuario[] = [];
 
   equipeSelecionada!: number;
+  usuarioSelecionado!: number;
   isLoading: boolean = false;
 
   ngOnInit() {
     this.buscarEquipes();
+    this.buscarUsuarios();
     this.route.params.subscribe((params) => {
       // pego o id que vem na url para edição
       const tarefaId = +params["id"];
@@ -111,10 +115,30 @@ export class TarefaCadastrarComponent {
       });
   }
 
+  
+  buscarUsuarios() {
+    this.client
+      .get<Usuario[]>("https://localhost:7213/usuario/listar")
+      .subscribe({
+        next: (usuarios) => {
+          this.usuarios = usuarios;
+        },
+        error: (erro) => {
+          console.log(erro);
+        },
+      });
+  }
+
   salvaEquipesSelecionadas(event: MatSelectChange): void {
     this.equipeSelecionada = event.value as number;
     console.log("equipe selecionadas: ", this.equipeSelecionada);
     this.tarefa.equipeId = this.equipeSelecionada;
+  }
+
+  salvaUsuariosSelecionados(event: MatSelectChange): void {
+    this.usuarioSelecionado = event.value as number;
+    console.log("usuario selecionadas: ", this.usuarioSelecionado);
+    this.tarefa.usuarioId = this.usuarioSelecionado;
   }
 
   abrirModal(title: string, message: string) {

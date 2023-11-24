@@ -1,0 +1,26 @@
+<div class="lista-usuarios" *ngIf="usuarios.length > 0">
+    <div *ngFor="let usuario of usuarios">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{ usuario.nome }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-subtitle>Login: <u>{{ usuario.username }}</u></mat-card-subtitle>
+                <mat-card-subtitle>E-mail: <u>{{ usuario.email }}</u></mat-card-subtitle>
+                <mat-card-subtitle>Telefone: <u>{{ usuario.telefone }}</u> </mat-card-subtitle>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button color="primary" mat-button (click)="excluirUsuario(usuario.usuarioId)">
+                    <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font"
+                        data-mat-icon-type="font">delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+        <br>
+    </div>
+</div> 
+
+<div class="lista-usuarios" *ngIf="usuarios.length == 0">
+    <p>Não foi possivel acessar as usuarios</p>
+</div>

@@ -1,6 +1,5 @@
 <mat-sidenav-container class="container-sidenav">
     <mat-sidenav #sidenav mode="side" opened>
-
         <a mat-button routerLink="/pages/tarefa/listar" class="link-side-nav primeiro-item">
             <div class="item-sidenav">
                 <mat-icon class="icon-sidenav">menu</mat-icon>
@@ -13,7 +12,15 @@
                 <mat-icon class="icon-sidenav">supervisor_account</mat-icon>
                 <span class="titulo-side-nav">Minhas equipes</span>
             </div>
-        </a>       
+        </a>      
+        <br>
+        <a mat-button routerLink="/pages/usuario/listar" class="">
+            <div class="item-sidenav">
+                <mat-icon class="icon-sidenav">supervisor_account</mat-icon>
+                <span class="titulo-side-nav">Meus usuários</span>
+            </div>
+        </a>  
+
 
         <div class="item-sidenav">
             <button mat-button [matMenuTriggerFor]="menu">

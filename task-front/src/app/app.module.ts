@@ -30,7 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from "@angular/material/table";
 import {MatChipsModule} from '@angular/material/chips';
 import {MatBadgeModule} from '@angular/material/badge';
-import { LoadingComponent } from './components/loading/loading.component';
+import { UsuarioListarComponent } from './pages/usuario/usuario-listar/usuario-listar.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     EquipeListarComponent,
     EquipeCadastrarComponent,
     DialogComponent,
-    LoadingComponent
+    UsuarioListarComponent,
   ],
   imports: [
     BrowserModule,
