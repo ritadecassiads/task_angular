@@ -11,5 +11,11 @@
 }
 
 .icone-done{
-    color: rgb(15, 215, 15);
+    color: rgb(21, 160, 21);
 }
+
+.icone-undone{
+    color: rgb(157, 6, 6);
+}
+
+

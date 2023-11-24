@@ -30,6 +30,10 @@ const routes: Routes = [
     path: "pages/equipe/cadastrar",
     component: EquipeCadastrarComponent
   },
+  {
+    path: "pages/equipe/editar/:id",
+    component: EquipeCadastrarComponent
+  },
 ]; // toda vez que for criar uma nova rota pro componente escrever como um Objeto
 
 @NgModule({

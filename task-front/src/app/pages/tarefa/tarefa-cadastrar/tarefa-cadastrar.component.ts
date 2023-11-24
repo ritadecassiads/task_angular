@@ -1,9 +1,12 @@
 import { Component } from "@angular/core";
 import { Tarefa } from "src/app/models/tarefa.model";
 import { TarefaService } from "src/app/services/tarefa.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "src/app/components/dialog/dialog.component";
+import { Equipe } from "src/app/models/equipe.model";
+import { HttpClient } from "@angular/common/http";
+import { MatSelectChange } from "@angular/material/select";
 
 @Component({
   selector: "app-tarefa-cadastrar",
@@ -14,7 +17,9 @@ export class TarefaCadastrarComponent {
   constructor(
     private tarefaService: TarefaService,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private client: HttpClient,
+    private router: Router
   ) {}
 
   tarefa: Tarefa = {
@@ -23,7 +28,13 @@ export class TarefaCadastrarComponent {
     concluirEm: undefined,
   };
 
+  equipes: Equipe[] = [];
+
+  equipeSelecionada!: number;
+  isLoading: boolean = false;
+
   ngOnInit() {
+    this.buscarEquipes();
     this.route.params.subscribe((params) => {
       // pego o id que vem na url para edição
       const tarefaId = +params["id"];
@@ -43,8 +54,10 @@ export class TarefaCadastrarComponent {
   }
 
   salvarTarefa() {
+    this.isLoading = true;
     if (this.tarefa.titulo === "") {
       this.abrirModal("Campo obrigatório", "Titulo deve ser preenchido");
+      return this.router.navigate(["pages/tarefa/cadastrar"]);
     } else {
       if (this.tarefa.tarefaId == null) {
         try {
@@ -57,6 +70,7 @@ export class TarefaCadastrarComponent {
           return this.abrirModal("Indisponibilidade", "Erro ao salvar tarefa");
         }
 
+        this.isLoading = true;
         return this.abrirModal("Sucesso", "Tarefa salva com sucesso!");
       } else {
         this.editarTarefa();
@@ -72,7 +86,8 @@ export class TarefaCadastrarComponent {
       return this.abrirModal("Indisponibilidade", "Erro ao editar tarefa");
     }
 
-    return this.abrirModal("Sucesso", "Tarefa alterada com sucesso!");
+    this.abrirModal("Sucesso", "Tarefa alterada com sucesso!");
+    return this.router.navigate(["pages/tarefa/listar"]);
   }
 
   formataData(date: Date) {
@@ -81,8 +96,25 @@ export class TarefaCadastrarComponent {
     const dataUTC = new Date(data.getTime() + timezoneOffset * 60 * 1000);
     const dataFormatada = dataUTC.toISOString();
     this.tarefa.concluirEm = new Date(dataFormatada);
+  }
 
-    console.log("converteu a data", this.tarefa.concluirEm);
+  buscarEquipes() {
+    this.client
+      .get<Equipe[]>("https://localhost:7213/equipe/listar")
+      .subscribe({
+        next: (equipes) => {
+          this.equipes = equipes;
+        },
+        error: (erro) => {
+          console.log(erro);
+        },
+      });
+  }
+
+  salvaEquipesSelecionadas(event: MatSelectChange): void {
+    this.equipeSelecionada = event.value as number;
+    console.log("equipe selecionadas: ", this.equipeSelecionada);
+    this.tarefa.equipeId = this.equipeSelecionada;
   }
 
   abrirModal(title: string, message: string) {
@@ -92,7 +124,7 @@ export class TarefaCadastrarComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
+      
     });
   }
 }

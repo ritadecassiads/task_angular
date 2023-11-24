@@ -29,6 +29,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from "@angular/material/table";
 import {MatChipsModule} from '@angular/material/chips';
+import {MatBadgeModule} from '@angular/material/badge';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {MatChipsModule} from '@angular/material/chips';
     SideNavComponent,
     EquipeListarComponent,
     EquipeCadastrarComponent,
-    DialogComponent
+    DialogComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatSelectModule,
     MatDialogModule,
     MatTableModule,
-    MatChipsModule
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

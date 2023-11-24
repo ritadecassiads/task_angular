@@ -24,8 +24,17 @@
     </mat-form-field>
 
     <div>
+      <mat-form-field>
+        <mat-label>Equipe</mat-label>
+        <mat-select (selectionChange)="salvaEquipesSelecionadas($event)">
+          <mat-option *ngFor="let equipe of equipes" [value]="equipe.equipeId">{{ equipe.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
       <button mat-fab extended color="primary" routerLink="" (click)="salvarTarefa()" type="submit">
-        {{ tarefa.tarefaId ? 'Editar' : 'Salvar' }}
+        Salvar
       </button>
     </div>
 </div>

@@ -7,13 +7,16 @@
 
 -> associar usuario a equipe e mostra na listagem de equipe
 
--> Ajustar tabela de tarefas
-- Ajustar botao de conclusão
-    - fazer função que marca como concluída
 
 ## Regras de negocio
 - Cada equipe pode ter varias tarefas
-- Cada equipe pode ter varios usuarios
+    - relacionamento está no cadastro de tarefas
+    - no cadastro de equipe apenas cadastra o nome da equipe
+
+- Cada equipe pode ter varios usuarios(não implementei)
+
+- Toda tarefa concluída não pode mais ser editada
+- Ao cliclar no botão do status altera de não iniciada -> em andamento -> concluída
 
 
 

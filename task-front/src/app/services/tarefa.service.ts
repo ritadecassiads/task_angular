@@ -67,6 +67,20 @@ export class TarefaService {
     return this.client.get<Tarefa>(`${this.apiUrl}/buscar/${id}`);
   }
 
+  alteraStatus(tarefa: Tarefa){
+    this.client
+    .patch<Tarefa>(`${this.apiUrl}/alterarconcluida/${tarefa.tarefaId}`, tarefa)
+    .subscribe({
+      next: (tarefas) => {
+        console.log(tarefas);
+        window.location.reload();
+      },
+      error: (erro) => {
+        console.log(erro);
+      },
+    });
+  }
+
   setaDataDaquiASeteDias(tarefa: Tarefa) {
     // se o campo "concluirEm" estiver vazio, defino a data daqui a 7 dias
     if (!tarefa.concluirEm) {
