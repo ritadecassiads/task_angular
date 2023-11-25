@@ -5,6 +5,7 @@ import { TarefaCadastrarComponent } from './pages/tarefa/tarefa-cadastrar/tarefa
 import { EquipeListarComponent } from './pages/equipe/equipe-listar/equipe-listar.component';
 import { EquipeCadastrarComponent } from './pages/equipe/equipe-cadastrar/equipe-cadastrar.component';
 import { UsuarioListarComponent } from './pages/usuario/usuario-listar/usuario-listar.component';
+import { UsuarioCadastrarComponent } from './pages/usuario/usuario-cadastrar/usuario-cadastrar.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: "pages/usuario/listar",
     component: UsuarioListarComponent
+  },
+  {
+    path: "pages/usuario/cadastrar",
+    component: UsuarioCadastrarComponent
   },
 ]; // toda vez que for criar uma nova rota pro componente escrever como um Objeto
 

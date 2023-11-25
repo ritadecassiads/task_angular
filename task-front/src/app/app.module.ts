@@ -31,6 +31,7 @@ import { MatTableModule } from "@angular/material/table";
 import {MatChipsModule} from '@angular/material/chips';
 import {MatBadgeModule} from '@angular/material/badge';
 import { UsuarioListarComponent } from './pages/usuario/usuario-listar/usuario-listar.component';
+import { UsuarioCadastrarComponent } from './pages/usuario/usuario-cadastrar/usuario-cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UsuarioListarComponent } from './pages/usuario/usuario-listar/usuario-l
     EquipeCadastrarComponent,
     DialogComponent,
     UsuarioListarComponent,
+    UsuarioCadastrarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,46 @@
+<div class="cadastro-usuario">
+    <h1>
+      Cadastro de Usuário
+    </h1>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput name="nome" required [(ngModel)]="usuario.nome" placeholder="Placeholder">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput name="username" name="username" required [(ngModel)]="usuario.username" placeholder="Placeholder">
+      </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput name="senha" name="senha" required [(ngModel)]="usuario.senha" placeholder="Placeholder">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput name="email" name="email" [(ngModel)]="usuario.email" placeholder="Placeholder">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input matInput name="telefone" name="telefone" [(ngModel)]="usuario.telefone" placeholder="Placeholder">
+        </mat-form-field>
+      </div>
+
+
+    <div>
+      <button mat-fab extended color="primary" routerLink="" (click)="salvarUsuario()" type="submit">
+        Salvar
+      </button>
+    </div>
+</div>
