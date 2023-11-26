@@ -60,8 +60,8 @@ export class UsuarioCadastrarComponent {
         console.log("Erro ao salvar usuário: ", error);
         return this.abrirModal("Indisponibilidade", "Erro ao salvar usuário");
       }
-      this.router.navigate(["pages/usuario/listar"]);
-      return this.abrirModal("Sucesso", "Usuário salvo com sucesso!");
+      this.abrirModal("Sucesso", "Usuário salvo com sucesso!");
+      return this.router.navigate(["pages/usuario/listar"]);
     }
   }
 
@@ -82,6 +82,8 @@ export class UsuarioCadastrarComponent {
       data: { title, message },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      window.location.reload();
+    });
   }
 }

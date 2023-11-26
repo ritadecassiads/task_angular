@@ -155,7 +155,7 @@ export class TarefaCadastrarComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      
+      window.location.reload();
     });
-  }
+    }
 }

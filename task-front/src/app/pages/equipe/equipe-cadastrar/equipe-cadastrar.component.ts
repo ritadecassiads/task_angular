@@ -75,6 +75,8 @@ export class EquipeCadastrarComponent {
       data: { title, message },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      window.location.reload();
+    });
   }
 }
