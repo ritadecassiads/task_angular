@@ -11,7 +11,10 @@
             </mat-card-content>
 
             <mat-card-actions align="end">
-                <button color="primary" mat-button (click)="excluirUsuario(usuario.usuarioId)">
+                <button mat-button [routerLink]="['/pages/usuario/editar', usuario.usuarioId]" title="Editar">
+                    <mat-icon class="mat-primary">edit</mat-icon>
+                </button>
+                <button color="warn" mat-button (click)="excluirUsuario(usuario.usuarioId)">
                     <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font"
                         data-mat-icon-type="font">delete</mat-icon>
                 </button>
@@ -22,5 +25,5 @@
 </div> 
 
 <div class="lista-usuarios" *ngIf="usuarios.length == 0">
-    <p>Não foi possivel acessar as usuarios</p>
+    <p>Não foi possível acessar os usuários</p>
 </div>

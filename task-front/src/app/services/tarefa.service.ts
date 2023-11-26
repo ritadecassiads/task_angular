@@ -40,6 +40,9 @@ export class TarefaService {
   }
 
   editarTarefa(tarefa: Tarefa) {
+    // Antes de enviar a tarefa para edição, formate a data daqui a 7 dias se estiver vazia
+    this.setaDataDaquiASeteDias(tarefa);
+  
     this.client
       .put(`${this.apiUrl}/alterar/${tarefa.tarefaId}`, tarefa)
       .subscribe({

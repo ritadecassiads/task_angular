@@ -4,9 +4,6 @@ import { UsuarioService } from "src/app/services/usuario.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogComponent } from "src/app/components/dialog/dialog.component";
-import { Equipe } from "src/app/models/equipe.model";
-import { HttpClient } from "@angular/common/http";
-import { MatSelectChange } from "@angular/material/select";
 
 @Component({
   selector: "app-usuario-cadastrar",
@@ -18,7 +15,6 @@ export class UsuarioCadastrarComponent {
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private client: HttpClient,
     private router: Router
   ) {}
 
@@ -32,12 +28,8 @@ export class UsuarioCadastrarComponent {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      // pego o id que vem na url para edição
       const usuarioId = +params["id"];
       if (usuarioId) {
-        console.log("ID da usuario:", usuarioId);
-
-        // busco a usuario para preencher os campos
         this.buscarUsuarioPorId(usuarioId);
       }
     });
@@ -54,31 +46,35 @@ export class UsuarioCadastrarComponent {
       this.abrirModal("Campo obrigatório", "Username deve ser preenchido");
       return this.router.navigate(["pages/usuario/cadastrar"]);
     } else {
-        try {
-          if (this.usuario.senha === "" || this.usuario.nome === "") {
-            this.abrirModal("Campo obrigatório", "Senha e Nome deve ser preenchido");
-          }
-          this.usuarioService.salvarUsuario(this.usuario);
-        } catch (error) {
-          console.log("Erro ao salvar usuario: ", error);
-          return this.abrirModal("Indisponibilidade", "Erro ao salvar usuario");
+      try {
+        if (this.usuario.senha === "" || this.usuario.nome === "") {
+          this.abrirModal("Campo obrigatório", "Senha e Nome deve ser preenchido");
         }
-
-        return this.abrirModal("Sucesso", "Usuario salvo com sucesso!");
+        
+        if (this.usuario.usuarioId) {
+          this.editarUsuario();
+        } else {
+          this.usuarioService.salvarUsuario(this.usuario);
+        }
+      } catch (error) {
+        console.log("Erro ao salvar usuário: ", error);
+        return this.abrirModal("Indisponibilidade", "Erro ao salvar usuário");
+      }
+      this.router.navigate(["pages/usuario/listar"]);
+      return this.abrirModal("Sucesso", "Usuário salvo com sucesso!");
     }
   }
 
- /* editarUsuario() {
+  editarUsuario() {
     try {
-      this.usuarioService.editarUsuario(this.usuario);
+      this.usuarioService.editarUsuario(this.usuario)
+        this.abrirModal("Sucesso", "Usuário alterado com sucesso!");
+        this.router.navigate(["pages/usuario/listar"]);
     } catch (error) {
-      console.log("Erro ao editar usuario: ", error);
-      return this.abrirModal("Indisponibilidade", "Erro ao editar usuario");
+      console.log("Erro ao editar usuário: ", error);
+      return this.abrirModal("Indisponibilidade", "Erro ao editar usuário");
     }
-
-    this.abrirModal("Sucesso", "Usuario alterado com sucesso!");
-    return this.router.navigate(["pages/usuario/listar"]);
-  }*/
+  }
 
   abrirModal(title: string, message: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -86,8 +82,6 @@ export class UsuarioCadastrarComponent {
       data: { title, message },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

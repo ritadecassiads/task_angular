@@ -94,14 +94,21 @@ export class TarefaCadastrarComponent {
     return this.router.navigate(["pages/tarefa/listar"]);
   }
 
-  formataData(date: Date) {
-    const data = new Date(date);
-    const timezoneOffset = data.getTimezoneOffset();
-    const dataUTC = new Date(data.getTime() + timezoneOffset * 60 * 1000);
-    const dataFormatada = dataUTC.toISOString();
-    this.tarefa.concluirEm = new Date(dataFormatada);
+  formataData(date: Date | string) {
+    if (date instanceof Date) {
+      // Se já for uma instância de Date, faz a formatação
+      const timezoneOffset = date.getTimezoneOffset();
+      const dataUTC = new Date(date.getTime() + timezoneOffset * 60 * 1000);
+      this.tarefa.concluirEm = dataUTC;
+    } else {
+      // Se for uma string, converte para Date e depois formata
+      const data = new Date(date);
+      const timezoneOffset = data.getTimezoneOffset();
+      const dataUTC = new Date(data.getTime() + timezoneOffset * 60 * 1000);
+      this.tarefa.concluirEm = dataUTC;
+    }
   }
-
+  
   buscarEquipes() {
     this.client
       .get<Equipe[]>("https://localhost:7213/equipe/listar")
